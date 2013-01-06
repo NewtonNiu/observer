@@ -1,49 +1,49 @@
 ﻿<!DOCTYPE html>
 <html>
     <head>
-		<title>speed</title>
-		<script type="text/javascript" src="./src/observer.js"></script>
-		<script type="text/javascript" src="./src/console.js"></script>
-		<style type="text/css">
-			html, body, div {
-				margin: 0;
-				padding: 0;
-			}
-			
-			.info {
-				width: 960px;
-				text-align: center;
-				margin: 66px auto 0;
-				color: #F00;
-			}
-		</style>
+        <title>speed</title>
+        <script type="text/javascript" src="./src/observer.js"></script>
+        <script type="text/javascript" src="./src/console.js"></script>
+        <style type="text/css">
+            html, body, div {
+                margin: 0;
+                padding: 0;
+            }
+
+            .info {
+                width: 960px;
+                text-align: center;
+                margin: 66px auto 0;
+                color: #F00;
+            }
+        </style>
     </head>
     <body>
-		<div class="info">请按F12查看控制台信息，浏览器版本需要IE6以上或者现代浏览器！</div>
-		<script type="text/javascript">
-			(function (){
-				var listener = function (message, topic, publisher){
-					console.log('发布者：' + publisher  + ' >>> ' + '订阅者：' + topic + ' >>> ' + '消息：' + ' >>> ' + message);
-				};
+        <div class="info">请按F12查看控制台信息，浏览器版本需要IE6以上或者现代浏览器！</div>
+        <script type="text/javascript">
+            (function (){
+                var listener = function (message, topic, publisher){
+                    console.log('发布者：' + publisher + ' >>> ' + '订阅者：' + topic + ' >>> ' + '消息：' + ' >>> ' + message);
+                };
 
-				console.time('subscribe');
-				for (var i = 0; i < 10; ++i) {
-					observer.subscribe('observer.topic_' + i, listener);
-				}
-				console.timeEnd('subscribe');
+                console.time('subscribe');
+                for (var i = 0; i < 10; ++i) {
+                    observer.subscribe('observer.topic_' + i, listener);
+                }
+                console.timeEnd('subscribe');
 
-				console.time('publish');
-				for (var j = 0; j < 10; ++j) {
-					observer.publish('observer.topic_' + j, 'Hello observer.topic_' + j + ' !');
-				}
-				console.timeEnd('publish');
+                console.time('publish');
+                for (var j = 0; j < 10; ++j) {
+                    observer.publish('observer.topic_' + j, 'Hello observer.topic_' + j + ' !');
+                }
+                console.timeEnd('publish');
 
-				console.time('unsubscribe');
-				for (var k = 0; k < 10; ++k) {
-					observer.unsubscribe('observer.topic_' + k, listener);
-				}
-				console.timeEnd('unsubscribe');
-			}());
-		</script>
+                console.time('unsubscribe');
+                for (var k = 0; k < 10; ++k) {
+                    observer.unsubscribe('observer.topic_' + k, listener);
+                }
+                console.timeEnd('unsubscribe');
+            }());
+        </script>
     </body>
 </html>

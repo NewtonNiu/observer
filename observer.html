@@ -1,48 +1,48 @@
 ﻿<!DOCTYPE html>
 <html>
     <head>
-		<title>observer</title>
-		<script type="text/javascript" src="./src/observer.js"></script>
-		<script type="text/javascript" src="./src/console.js"></script>
-		<style type="text/css">
-			html, body, div {
-				margin: 0;
-				padding: 0;
-			}
-			
-			.info {
-				width: 960px;
-				text-align: center;
-				margin: 66px auto 0;
-				color: #F00;
-			}
-		</style>
+        <title>observer</title>
+        <script type="text/javascript" src="./src/observer.js"></script>
+        <script type="text/javascript" src="./src/console.js"></script>
+        <style type="text/css">
+            html, body, div {
+                margin: 0;
+                padding: 0;
+            }
+
+            .info {
+                width: 960px;
+                text-align: center;
+                margin: 66px auto 0;
+                color: #F00;
+            }
+        </style>
     </head>
     <body>
-		<div class="info">请按F12查看控制台信息，浏览器版本需要IE6以上或者现代浏览器！</div>
-		<script type="text/javascript">
-			(function (){
-				var listener = function (message, topic, publisher){
-					console.log('发布者：' + publisher  + ' >>> ' + '订阅者：' + topic + ' >>> ' + '消息：' + ' >>> ' + message);
-				};
+        <div class="info">请按F12查看控制台信息，浏览器版本需要IE6以上或者现代浏览器！</div>
+        <script type="text/javascript">
+            (function (){
+                var listener = function (message, topic, publisher){
+                    console.log('发布者：' + publisher + ' >>> ' + '订阅者：' + topic + ' >>> ' + '消息：' + ' >>> ' + message);
+                };
 
-				console.time('subscribe');
-				observer.subscribe('news.sport', listener);
-				observer.subscribe('news.society', listener);
-				observer.subscribe('news.science', listener);
-				console.timeEnd('subscribe');
+                console.time('subscribe');
+                observer.subscribe('news.sport', listener);
+                observer.subscribe('news.society', listener);
+                observer.subscribe('news.science', listener);
+                console.timeEnd('subscribe');
 
-				console.time('publish');
-				observer.publish('news', '您订阅的新闻有更新！');
-				observer.publish('news.sport', '您订阅的体育新闻有更新！');
-				observer.publish('news.society', '您订阅的社会新闻有更新！');
-				observer.publish('news.science', '您订阅的科技新闻有更新！');
-				console.timeEnd('publish');
+                console.time('publish');
+                observer.publish('news', '您订阅的新闻有更新！');
+                observer.publish('news.sport', '您订阅的体育新闻有更新！');
+                observer.publish('news.society', '您订阅的社会新闻有更新！');
+                observer.publish('news.science', '您订阅的科技新闻有更新！');
+                console.timeEnd('publish');
 
-				console.time('unsubscribe');
-				observer.unsubscribe('news');
-				console.timeEnd('unsubscribe');
-			}());
-		</script>
+                console.time('unsubscribe');
+                observer.unsubscribe('news');
+                console.timeEnd('unsubscribe');
+            }());
+        </script>
     </body>
 </html>

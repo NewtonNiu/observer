@@ -13,10 +13,10 @@ observer._module = {};
 (function (util){
     var toString = Object.prototype.toString;
     var AP = Array.prototype;
-	
-	util.isString = function(val) {
-		return toString.call(val) === '[object String]';
-	};
+
+    util.isString = function (val){
+        return toString.call(val) === '[object String]';
+    };
 
     util.isFunction = function (val){
         return toString.call(val) === '[object Function]';
@@ -28,39 +28,40 @@ observer._module = {};
 
     var forEach = util.forEach = function (arr, fn){
         for (var len = arr.length >>> 0, i = len; i >= 1; --i) {
-            if(fn(arr[len - i], len - i, arr) === false) break;
+            if (fn(arr[len - i], len - i, arr) === false) break;
         }
     };
-	
-	util.indexOf = AP.indexOf ? function (arr, item){
-		return arr.indexOf(item);
-	} : function (arr, item){;
-		var index = -1;
-		forEach(arr, function(entries, i){
-			if(entries === item){
-				index = i;
-				return false;
-			}
-		});
-		return index;
-	};
+
+    util.indexOf = AP.indexOf ? function (arr, item){
+        return arr.indexOf(item);
+    } : function (arr, item){
+        ;
+        var index = -1;
+        forEach(arr, function (entries, i){
+            if (entries === item) {
+                index = i;
+                return false;
+            }
+        });
+        return index;
+    };
 
     util.remove = function (arr, item){
-		forEach(arr, function(entries, i){
-			if(entries === item){
-				arr.splice(i, 1);
-				return false;
-			}
-		});
+        forEach(arr, function (entries, i){
+            if (entries === item) {
+                arr.splice(i, 1);
+                return false;
+            }
+        });
     };
-	
-	util.empty = function(o){
-		if(Object.keys) return Object.keys(o).length ? false : true;
-		for(var i in o){
-			return false;
-		}		
-		return true;
-	};
+
+    util.empty = function (o){
+        if (Object.keys) return Object.keys(o).length ? false : true;
+        for (var i in o) {
+            return false;
+        }
+        return true;
+    };
 })(observer._util);
 
 (function (util, module){
@@ -92,36 +93,36 @@ observer._module = {};
     };
 
     var cleanTopic = function (topic){
-		var pns, tnsstr, pnsstr, nsarr = topic.split('.');
-		for(var i = nsarr.length >>> 0; i >= 1; --i){
+        var pns, tnsstr, pnsstr, nsarr = topic.split('.');
+        for (var i = nsarr.length >>> 0; i >= 1; --i) {
             if (!util.empty(getTopic(topic))) break;
-			tnsstr = nsarr.pop();
+            tnsstr = nsarr.pop();
             pnsstr = nsarr.join('.');
-			pns = pnsstr ? getTopic(pnsstr): TOPIC_STACK;
-			delete pns[tnsstr];
+            pns = pnsstr ? getTopic(pnsstr) : TOPIC_STACK;
+            delete pns[tnsstr];
             topic = pnsstr;
-		}
+        }
     };
-	
-	var update = function(ns, message, topic, publisher){
-		util.forEach(ns['__listeners__'] || [], function (fn){
+
+    var update = function (ns, message, topic, publisher){
+        util.forEach(ns['__listeners__'] || [], function (fn){
             fn(message, topic, publisher);
         });
-		for (var i in ns) {
-			if (i === '__listeners__') continue;
-			update(ns[i], message, topic + '.' + i, publisher);
-		}
-	};  
+        for (var i in ns) {
+            if (i === '__listeners__') continue;
+            update(ns[i], message, topic + '.' + i, publisher);
+        }
+    };
 
     var notify = function (message, topic){
         var tns = getTopic(topic);
         if (!tns) return;
-		update(tns, message, topic, topic);
+        update(tns, message, topic, topic);
     };
 
     module.subscribe = function (topic, fn){
         util.forEach(util.isArray(topic) ? topic : [topic], function (topic){
-			if(!testTopic(topic)) return;
+            if (!testTopic(topic)) return;
             topic = setTopic(topic);
             topic['__listeners__'] = topic['__listeners__'] || [];
             util.forEach(util.isArray(fn) ? fn : [fn], function (fn){
@@ -143,7 +144,7 @@ observer._module = {};
                 break;
             case 1:
                 util.forEach(util.isArray(topic) ? topic : [topic], function (topic){
-					if(!testTopic(topic)) return;
+                    if (!testTopic(topic)) return;
                     var nsarr = topic.split('.');
                     var tnsstr = nsarr.pop();
                     var pns = getTopic(nsarr.join('.')) || TOPIC_STACK;
@@ -153,7 +154,7 @@ observer._module = {};
                 break;
             default :
                 util.forEach(util.isArray(topic) ? topic : [topic], function (topic){
-					if(!testTopic(topic)) return;
+                    if (!testTopic(topic)) return;
                     var tns = getTopic(topic);
                     if (!tns || !tns['__listeners__']) return;
                     util.forEach(util.isArray(fn) ? fn : [fn], function (fn){
