@@ -15,11 +15,11 @@ this.console = this.console || {};
 
     global.console.info = console.info || function (){};
 
-    global.console.time = global.console.time || function (name){
+    global.console.time = console.time || function (name){
         timeStack[name] = +new Date();
     };
 
-    global.console.timeEnd = global.console.timeEnd || function (name){
+    global.console.timeEnd = console.timeEnd || function (name){
         if (timeStack[name]) {
             console.info(name + ': ' + (+new Date() - timeStack[name]) + 'ms');
             delete timeStack[name];
