@@ -35,7 +35,6 @@ observer._module = {};
     util.indexOf = AP.indexOf ? function (arr, item){
         return arr.indexOf(item);
     } : function (arr, item){
-        ;
         var index = -1;
         forEach(arr, function (entries, i){
             if (entries === item) {
