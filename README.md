@@ -1,4 +1,4 @@
 observer
 ========
 
-a javascript subscribers observer mode
+A javascript subscribers observer mode, support subspace!
