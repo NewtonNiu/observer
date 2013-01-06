@@ -65,10 +65,9 @@ observer._module = {};
 
 (function (util, module){
     var TOPIC_STACK = {};
-    var TOPIC_RE = /^[a-zA-Z_$][a-zA-Z0-9_$]*(\.[a-zA-Z_$][a-zA-Z0-9_$]*)*$/igm;
+    var TOPIC_RE = /^[a-zA-Z_$][a-zA-Z0-9_$]*(\.[a-zA-Z_$][a-zA-Z0-9_$]*)*$/;
 
     var testTopic = function (topic){
-        TOPIC_RE.lastIndex = 0;
         return util.isString(topic) && TOPIC_RE.test(topic);
     };
 
