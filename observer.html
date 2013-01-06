@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ï»¿<!DOCTYPE html>
 <html>
     <head>
 		<title>observer</title>
@@ -19,11 +19,11 @@
 		</style>
     </head>
     <body>
-		<div class="info">Çë°´F12²é¿´¿ØÖÆÌ¨ĞÅÏ¢£¬ä¯ÀÀÆ÷°æ±¾ĞèÒªIE6ÒÔÉÏ»òÕßÏÖ´úä¯ÀÀÆ÷£¡</div>
+		<div class="info">è¯·æŒ‰F12æŸ¥çœ‹æ§åˆ¶å°ä¿¡æ¯ï¼Œæµè§ˆå™¨ç‰ˆæœ¬éœ€è¦IE6ä»¥ä¸Šæˆ–è€…ç°ä»£æµè§ˆå™¨ï¼</div>
 		<script type="text/javascript">
 			(function (){
 				var listener = function (message, topic, publisher){
-					console.log('·¢²¼Õß£º' + publisher  + ' >>> ' + '¶©ÔÄÕß£º' + topic + ' >>> ' + 'ÏûÏ¢£º' + ' >>> ' + message);
+					console.log('å‘å¸ƒè€…ï¼š' + publisher  + ' >>> ' + 'è®¢é˜…è€…ï¼š' + topic + ' >>> ' + 'æ¶ˆæ¯ï¼š' + ' >>> ' + message);
 				};
 
 				console.time('subscribe');
@@ -33,10 +33,10 @@
 				console.timeEnd('subscribe');
 
 				console.time('publish');
-				observer.publish('news', 'Äú¶©ÔÄµÄĞÂÎÅÓĞ¸üĞÂ£¡');
-				observer.publish('news.sport', 'Äú¶©ÔÄµÄÌåÓıĞÂÎÅÓĞ¸üĞÂ£¡');
-				observer.publish('news.society', 'Äú¶©ÔÄµÄÉç»áĞÂÎÅÓĞ¸üĞÂ£¡');
-				observer.publish('news.science', 'Äú¶©ÔÄµÄ¿Æ¼¼ĞÂÎÅÓĞ¸üĞÂ£¡');
+				observer.publish('news', 'æ‚¨è®¢é˜…çš„æ–°é—»æœ‰æ›´æ–°ï¼');
+				observer.publish('news.sport', 'æ‚¨è®¢é˜…çš„ä½“è‚²æ–°é—»æœ‰æ›´æ–°ï¼');
+				observer.publish('news.society', 'æ‚¨è®¢é˜…çš„ç¤¾ä¼šæ–°é—»æœ‰æ›´æ–°ï¼');
+				observer.publish('news.science', 'æ‚¨è®¢é˜…çš„ç§‘æŠ€æ–°é—»æœ‰æ›´æ–°ï¼');
 				console.timeEnd('publish');
 
 				console.time('unsubscribe');

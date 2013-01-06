@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
     <head>
 		<title>speed</title>
@@ -19,11 +19,11 @@
 		</style>
     </head>
     <body>
-		<div class="info">�밴F12�鿴����̨��Ϣ��������汾��ҪIE6���ϻ����ִ��������</div>
+		<div class="info">请按F12查看控制台信息，浏览器版本需要IE6以上或者现代浏览器！</div>
 		<script type="text/javascript">
 			(function (){
 				var listener = function (message, topic, publisher){
-					console.log('�����ߣ�' + publisher  + ' >>> ' + '�����ߣ�' + topic + ' >>> ' + '��Ϣ��' + ' >>> ' + message);
+					console.log('发布者：' + publisher  + ' >>> ' + '订阅者：' + topic + ' >>> ' + '消息：' + ' >>> ' + message);
 				};
 
 				console.time('subscribe');
