@@ -55,7 +55,6 @@ observer._module = {};
     };
 
     util.empty = function (o){
-        if (Object.keys) return Object.keys(o).length ? false : true;
         for (var i in o) {
             return false;
         }
