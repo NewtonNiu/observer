@@ -84,7 +84,7 @@ observer._module = {};
         var ns = TOPIC_STACK;
         util.forEach(topic.split('.'), function (topic){
             if (!ns || topic === '__listeners__') return;
-            ns = ns[topic] ? ns[topic] : undefined;
+            ns = ns[topic] || undefined;
         });
         return ns;
     };
