@@ -1,4 +1,4 @@
 observer
 ========
 
-A javascript subscribers observer mode, support topic namespace!
+A javascript subscribers observer module, support topic namespace!
