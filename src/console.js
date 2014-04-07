@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Created with JetBrains PhpStorm.
  * User: newton
  * Date: 13-1-3
@@ -26,4 +26,3 @@ this.console = this.console || {};
         }
     };
 }(console, this));
-
