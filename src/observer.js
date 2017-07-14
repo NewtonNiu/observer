@@ -1,32 +1,27 @@
-/**
- * Created with JetBrains PhpStorm.
- * User: newton
- * Date: 13-1-3
- * Time: 上午9:02
- * To change this template use File | Settings | File Templates.
- */
-"use strict";
+'use strict';
+
 this.observer = {};
+
 observer._util = {};
 observer._module = {};
 
-(function (util){
+(function(util) {
   var AP = Array.prototype;
   var toString = Object.prototype.toString;
 
-  util.isString = function (val){
+  util.isString = function(val) {
     return toString.call(val) === '[object String]';
   };
 
-  util.isFunction = function (val){
+  util.isFunction = function(val) {
     return toString.call(val) === '[object Function]';
   };
 
-  util.isArray = Array.isArray || function (val){
-      return toString.call(val) === '[object Array]';
-    };
+  util.isArray = Array.isArray || function(val) {
+    return toString.call(val) === '[object Array]';
+  };
 
-  var forEach = util.forEach = function (arr, fn){
+  var forEach = util.forEach = function(arr, fn) {
     for (var len = arr.length || 0, i = len; i >= 1; --i) {
       if (fn(arr[len - i], len - i, arr) === false) {
         break;
@@ -34,12 +29,12 @@ observer._module = {};
     }
   };
 
-  util.indexOf = AP.indexOf ? function (arr, item){
+  util.indexOf = AP.indexOf ? function(arr, item) {
     return arr.indexOf(item);
-  } : function (arr, item){
+  } : function(arr, item) {
     var index = -1;
 
-    forEach(arr, function (entries, i){
+    forEach(arr, function(entries, i) {
       if (entries === item) {
         index = i;
         return false;
@@ -49,8 +44,8 @@ observer._module = {};
     return index;
   };
 
-  util.removeItem = function (arr, item){
-    forEach(arr, function (entries, i){
+  util.removeItem = function(arr, item) {
+    forEach(arr, function(entries, i) {
       if (entries === item) {
         arr.splice(i, 1);
         return false;
@@ -59,14 +54,14 @@ observer._module = {};
   };
 })(observer._util);
 
-(function (util, module, undefined){
+(function(util, module, undefined) {
   var TOPIC_STACK = {
     length: 0,
     listeners: []
   };
   var TOPIC_RE = /^[A-Z_$][A-Z0-9_$]*(\.[A-Z_$][A-Z0-9_$]*)*$/i;
 
-  function validTopic(topic){
+  function validTopic(topic) {
     var valid = util.isString(topic) && TOPIC_RE.test(topic);
 
     if (valid) {
@@ -76,10 +71,10 @@ observer._module = {};
     }
   }
 
-  function setTopic(topic){
+  function setTopic(topic) {
     var tns = TOPIC_STACK;
 
-    util.forEach(topic.split('.'), function (topic){
+    util.forEach(topic.split('.'), function(topic) {
       if (topic === 'listeners' || topic === 'length') {
         return;
       }
@@ -98,10 +93,10 @@ observer._module = {};
     return tns;
   }
 
-  function getTopic(topic){
+  function getTopic(topic) {
     var tns = TOPIC_STACK;
 
-    util.forEach(topic.split('.'), function (topic){
+    util.forEach(topic.split('.'), function(topic) {
       if (!tns) {
         return false;
       }
@@ -116,15 +111,14 @@ observer._module = {};
     return tns;
   }
 
-  function emptyTopic(tns){
+  function emptyTopic(tns) {
     return (!tns.length && !tns.listeners.length);
   }
 
-  function cleanTopic(topic, cns){
+  function cleanTopic(topic, cns) {
     if (!emptyTopic(cns)) {
       return;
     }
-    ;
 
     var lastdot = topic.lastIndexOf('.'),
       pnsstr = topic.substring(0, lastdot),
@@ -158,8 +152,8 @@ observer._module = {};
     }
   }
 
-  function walk(tns, message, topic, publisher){
-    util.forEach(tns.listeners, function (fn){
+  function walk(tns, message, topic, publisher) {
+    util.forEach(tns.listeners, function(fn) {
       fn(message, topic, publisher);
     });
 
@@ -172,7 +166,7 @@ observer._module = {};
     }
   }
 
-  function notify(message, topic){
+  function notify(message, topic) {
     var tns = getTopic(topic);
 
     if (!tns) {
@@ -182,10 +176,10 @@ observer._module = {};
     walk(tns, message, topic, topic);
   }
 
-  module.subscribe = function (topic, fn){
+  module.subscribe = function(topic, fn) {
     topic = util.isArray(topic) ? topic : [topic];
 
-    util.forEach(topic, function (topic){
+    util.forEach(topic, function(topic) {
       if (!validTopic(topic)) {
         return;
       }
@@ -195,21 +189,21 @@ observer._module = {};
 
       fn = util.isArray(fn) ? fn : [fn];
 
-      util.forEach(fn, function (fn){
+      util.forEach(fn, function(fn) {
         util.isFunction(fn) && util.indexOf(listeners, fn) === -1 && listeners.push(fn);
       });
     });
   };
 
-  module.publish = function (topic, message){
+  module.publish = function(topic, message) {
     topic = util.isArray(topic) ? topic : [topic];
 
-    util.forEach(topic, function (topic){
+    util.forEach(topic, function(topic) {
       validTopic(topic) && notify(message, topic);
     });
   };
 
-  module.unsubscribe = function (topic, fn){
+  module.unsubscribe = function(topic, fn) {
     if (!arguments.length) {
       TOPIC_STACK = {
         length: 0,
@@ -220,7 +214,7 @@ observer._module = {};
 
       switch (arguments.length) {
         case 1:
-          util.forEach(topic, function (topic){
+          util.forEach(topic, function(topic) {
             if (!validTopic(topic)) {
               return;
             }
@@ -237,7 +231,7 @@ observer._module = {};
           });
           break;
         default:
-          util.forEach(topic, function (topic){
+          util.forEach(topic, function(topic) {
             if (!validTopic(topic)) {
               return;
             }
@@ -251,7 +245,7 @@ observer._module = {};
             var listeners = tns.listeners;
             fn = util.isArray(fn) ? fn : [fn];
 
-            util.forEach(fn, function (fn){
+            util.forEach(fn, function(fn) {
               util.removeItem(listeners, fn);
             });
 
@@ -263,7 +257,7 @@ observer._module = {};
   };
 }(observer._util, observer._module));
 
-(function (observer, global){
+(function(observer, global) {
   global.observer.subscribe = observer._module.subscribe;
   global.observer.publish = observer._module.publish;
   global.observer.unsubscribe = observer._module.unsubscribe;
